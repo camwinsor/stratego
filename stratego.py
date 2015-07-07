@@ -23,19 +23,17 @@ class BoardManager(object):
 		self.build_sequential_board()
 
 	def build_sequential_board(self):
-		
+		x, y = 0, 0
+
 		for piece in self.all_pieces['red']['pieces']:
-			x, y = 0, 0
+			piece['position'] = (x, y)
+			# print piece
+			x += 1
+			if x > 9:
+				y += 1
+				x = 0
 
-			while x <= 9 and y <= 3:
-				self.all_pieces['red']['position'] = (x, y)
-
-				if x < 9:
-					x += 1
-				elif x == 9:
-					y += 1
-					x = 0
-
+			
 		# for piece in self.all_pieces['blue']['pieces']:
 		# 	x, y = 0, 6
 
@@ -47,12 +45,6 @@ class BoardManager(object):
 		# 		elif x == 9:
 		# 			y += 1
 		# 			x = 0
-
-
-		
-
-
-
 
 class Pieces(object):
 	piece_dict = {
@@ -72,19 +64,29 @@ class Pieces(object):
 
 
 def print_board():
+
+
 	bm = BoardManager()
 	board = ""
-	for x in xrange(11):
-		for y in xrange(11):
+	for x in range(10):
+		for y in range(10):
 			#assign a piece
 			for piece_id in bm.all_pieces['red']:
-				piece = bm.all_pieces['red'][piece_id]
-				if piece['position'][0] == x and piece['position'][1] == y:
+				a_piece = bm.all_pieces['red'][piece_id]
+				
+
+				if a_piece[0]['position'][0] == x and a_piece[0]['position'][1] == y:
 					board = board + piece_id + " "
 				else:
 					board = board + "0 "
 		print board
 		board = ""
+		
+
+
+
+
+
 
 if __name__ == '__main__':
     
